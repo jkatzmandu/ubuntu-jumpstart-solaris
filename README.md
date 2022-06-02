@@ -54,9 +54,18 @@ Since my IP is 192.168.178.9 we need to convert that to hex. 192 -> C0 168 -> A8
 
 * $ cd /srv/tftp; sudo ln -s inetboot.sol10.sun4u C0A8B209
 
-Some systems require the architecture to be a part of the filename. So the command may need to be "sudo ln -s inetboot.sol10.sun4u C0A8B209.SUN4U"
+Some systems require the architecture to be a part of the filename. So the command may need to be "sudo ln -s inetboot.sol10.sun4u C0A8B209.SUN4U" This is mainly for older systems that probably won't support Solaris 10.
+
+In many modern Ubuntu installations "rpcbind" is locked-down. This means that it won't respond to requests sent over the network. To fix this, edit the /etc/default/rpcbind file so it will respond to network requests. Change the "OPTIONS" line to read:
+OPTIONS="-w -r -i"
+
+Then restart the rpcbind daemon itself:
+
+* $ sudo service rpcbind restart
 
 Now, on the Sun system's console, type
 
 ok boot net -- install
+
+... and then the network install should complete.
 
