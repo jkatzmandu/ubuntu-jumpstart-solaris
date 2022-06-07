@@ -37,9 +37,9 @@ OpenBoot 3.25, 256 MB (50 ns) memory installed, Serial #16777215
 Ethernet address 8:0:20:c0:ff:33, Host ID: 08fffffff.
 ```
 7) Next, we need to tell our Linux system "who" the Sun system is. We do this by
-* adding the MAC address to */etc/ethers 
-* and the hostname to */etc/hosts
-* and the boot parameters to */etc/bootparams
+* adding the MAC address to */etc/ethers* 
+* and the hostname to */etc/hosts*
+* and the boot parameters to */etc/bootparams*
 
 * Add to /etc/ethers:
 ```
