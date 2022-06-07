@@ -20,9 +20,10 @@ https://archive.org/details/sunsolaris10operatingsystem1106x86sparc
 ```
 sudo mount -o loop -t iso9660 /media/ISO/SOL_10_1106_SPARC.mdf /media/solaris
 ```
-4) Set up the media to be exported via NFS; add the following line to /etc/exports:
+4) Set up the media to be exported via NFS; add the following line to */etc/exports*:
+```
 /media/solaris *(ro,no_root_squash)
-
+```
 5) Use the "exportfs" command to export the filesystem and then the "showmount" command to show what's exported:
 ```
 $ sudo exportfs -a
@@ -58,8 +59,11 @@ ultra10  root=cockfosters:/media/solaris/Solaris_10/Tools/Boot install=cockfoste
 ```
 sudo mkdir -p /srv/tftp; sudo cp /media/solaris/Solaris_10/Tools/Boot/usr/platform/sun4u/lib/fs/nfs/inetboot /srv/tftp/inetboot.sol10.sun4u
 ```
-Since my IP is 192.168.178.9 we need to convert that to hex. 192 -> C0 168 -> A8 178 -> B2 and 9 is 09. Then we make the symbolic link, and case is important!
-
+Since my IP is 192.168.178.9 we need to convert that to hex. 192 -> C0 168 -> A8 178 -> B2 and 9 is 09.  If you don't feel like using a calculator to convert to hex, you can do it from the command line using awk:
+```
+echo 192.168.178.9 | awk -F "." '{ printf ("%02X%02X%02X%02X\n", $1, $2, $3, $4)}'
+```
+Then we make the symbolic link, and case is important. Note that on most distributions tftp files used toot be served from /tftpboot. Ubuntu seems to have changed this behaviour to /srv/tftp.
 ```
 cd /srv/tftp; sudo ln -s inetboot.sol10.sun4u C0A8B209
 ```
